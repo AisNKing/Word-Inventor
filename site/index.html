@@ -1,0 +1,95 @@
+<html>
+    <head>
+        <title>The Book Of Nonsense</title>
+    </head>
+
+    <body>
+        <div id="everything" class="everything">
+            <!-- TODO: add parameters to pass in for each gen function-->
+            <button name="generateWord" id="generateWord" onclick="generateWordButton()">Generate Word</button>
+            <br><br>
+
+            <div id="output" class="output"></div>
+        </div>
+
+    </body>
+
+<script>
+    var glossary = [];
+
+    function generateWordButton(){
+        var output = document.getElementById("output");
+        output.innerHTML = generateWord(1);
+    }
+
+
+    function generateWord(cap){
+
+        var vowels = Array("a", "e", "i", "o", "u");
+        var consonants = Array("b", "c", "d", "f", "g", "h", "j", "k", "l", "m", "n", "p", "r", "s", "t", "v", "w", "x", "y", "z");
+        var diagraphs = Array("sc", "ng", "ch", "ck", "gh", "ph", "rh", "sh", "ti", "th", "wh", "zh", "zi", "wr", "qu");
+
+        var wordLength = randomNumber(1, 9);
+
+        let word="";
+
+        for(var i = 0; i < wordLength; i++){
+
+            var choose = randomNumber(1, 6);
+            var letter = "";
+
+            if(choose <= 2){
+                letter = vowels[randomNumber(0, vowels.length)];
+            }
+            else if(choose <= 4){
+                letter = consonants[randomNumber(0, consonants.length)];
+            }
+            else{
+                letter = diagraphs[randomNumber(0, diagraphs.length)];
+            }
+            
+            word = word.concat(letter);
+        }
+        
+        if(cap){
+            word = word.charAt(0).toUpperCase() + word.substring(1);
+        }
+        glossary.push(word);
+        return word;
+    }
+
+
+    function randomNumber(min, max){
+
+        return Math.floor(Math.random() * (max - min)) + min;
+    }
+
+</script>
+
+<style>
+    .output{
+        width:30%;
+        text-align: justify;
+        text-justify: inter-word;
+    }
+    .everything{
+        width:100%;
+        text-align: justify;
+        text-justify: inter-word;
+    }
+    .title{
+        text-align: center;
+        text-justify: inter-word;
+        font-weight: bold;
+        font-size: 20;
+        page-break-before:always;
+    }
+    .bookTitle{
+        text-align: center;
+        text-justify: inter-word;
+        font-weight: bold;
+        text-decoration: underline;
+        font-size: 30;
+    }
+</style>
+</html>
